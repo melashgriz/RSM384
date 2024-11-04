@@ -48,8 +48,8 @@ nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BMI, WNGSP
 ```
 
 ```{r}
-nba.2324.combined <- nba.2324.player.adv.def %>% merge(nba.combine.filtered, by = "Player", all = FALSE)
+nba.2324.combined <- nba.2324.player.adv.def %>% merge(nba.combine.filtered, by = "Player", all = FALSE) 
 ```
-
+##Test
 
 
