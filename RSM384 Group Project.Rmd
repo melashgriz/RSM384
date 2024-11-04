@@ -1,0 +1,55 @@
+---
+title: "RSM 384 Group Project - NBA Defense and Size"
+author: Jeffrey Chu
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+install.packages("tidyverse")
+install.packages("RCurl")
+install.packages("corrplot")
+install.packages("dplyr")
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(RCurl)
+library(corrplot)
+library(dplyr)
+library(stats) #for LOESS
+library(nnet) #for Multinomial logit
+```
+
+Datasets used:
+
+**NBA Combine (2000-2024)**
+```{r}
+url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/main/NBA_draft_combine.csv")
+nba.combine.raw <- read.csv(text = url)
+nba.combine.raw <- separate(nba.combine.raw, col = PLAYER, into = c("Last Name", "First Name"), sep = ", ")
+nba.combine.raw$Player <- paste(nba.combine.raw$`First Name`, nba.combine.raw$`Last Name`, sep = " ")
+```
+
+**2023-2024 NBA Individual Player Advanced Defensive Stats**
+```{r}
+url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/main/2023-2024%20NBA%20Player%20Advanced%20Defensive%20Stats.csv")
+nba.2324.player.adv.def <- read.csv(text = url)
+```
+
+
+*Merging the Two Datasets**
+
+```{r}
+nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BMI, WNGSPN, STNDRCH, HANDL, HANDW, STNDVERT, LPVERT)
+```
+
+```{r}
+nba.2324.combined <- nba.2324.player.adv.def %>% merge(nba.combine.filtered, by = "Player", all = FALSE)
+```
+
+
+
