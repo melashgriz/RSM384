@@ -51,5 +51,9 @@ nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BMI, WNGSP
 nba.2324.combined <- nba.2324.player.adv.def %>% merge(nba.combine.filtered, by = "Player", all = FALSE)
 ```
 
+*Remove N/A variables from dataset
+```{r}
+nba.2324.combined <- na.omit(nba.2324.combined)  
+```
 
 
