@@ -44,7 +44,7 @@ nba.2324.player.adv.def <- read.csv(text = url)
 *Merging the Two Datasets**
 
 ```{r}
-nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BMI, WNGSPN, STNDRCH, HANDL, HANDW, STNDVERT, LPVERT)
+nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BAR, STNDRCH, PAN, LPVERT, SPRINT, LANE)
 ```
 
 ```{r}
