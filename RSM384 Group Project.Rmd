@@ -27,6 +27,7 @@ library(nnet) #for Multinomial logit
 Datasets used:
 
 **NBA Combine (2000-2024)**
+
 ```{r}
 url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/main/NBA_draft_combine.csv")
 nba.combine.raw <- read.csv(text = url)
@@ -34,14 +35,27 @@ nba.combine.raw <- separate(nba.combine.raw, col = PLAYER, into = c("Last Name",
 nba.combine.raw$Player <- paste(nba.combine.raw$`First Name`, nba.combine.raw$`Last Name`, sep = " ")
 ```
 
+**1996-2024 NBA Individual Player Advanced Defensive Stats**
+
+```{r}
+url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/main/1996-2024%20NBA%20Player%20Advanced%20Defensive%20Stats.csv")
+nba.9624.player.adv.def <- read.csv(text = url)
+```
+
+```{r}
+nba.9624.player.adv.def <- nba.9624.player.adv.def %>% filter(YEAR < "2024", GP > "20")
+nba.9624.player.adv.def <- nba.9624.player.adv.def %>% filter (!GP == "9", !GP == "A.J. Lawson", !GP == "LAC", !GP == "IND", !GP == "LAL")
+```
+
+
 **2023-2024 NBA Individual Player Advanced Defensive Stats**
+
 ```{r}
 url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/main/2023-2024%20NBA%20Player%20Advanced%20Defensive%20Stats.csv")
 nba.2324.player.adv.def <- read.csv(text = url)
 ```
 
-
-*Merging the Two Datasets**
+\*Merging the Two Datasets\*\*
 
 ```{r}
 nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BAR, STNDRCH, PAN, LPVERT, SPRINT, LANE)
@@ -51,9 +65,8 @@ nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BAR, STNDR
 nba.2324.combined <- nba.2324.player.adv.def %>% merge(nba.combine.filtered, by = "Player", all = FALSE)
 ```
 
-*Remove N/A variables from dataset
+**Remove N/A variables from dataset**
+
 ```{r}
-nba.2324.combined <- na.omit(nba.2324.combined)  
+nba.2324.combined <- na.omit(nba.2324.combined)
 ```
-
-
