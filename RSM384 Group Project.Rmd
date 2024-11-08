@@ -55,7 +55,7 @@ url <- getURL("https://raw.githubusercontent.com/jeffreychu48/RSM384/refs/heads/
 nba.2324.player.adv.def <- read.csv(text = url)
 ```
 
-\*Merging the Two Datasets\*\*
+**Merging the Two Datasets**
 
 ```{r}
 nba.combine.filtered <- nba.combine.raw %>% select (Player, HGT, WGT, BAR, STNDRCH, PAN, LPVERT, SPRINT, LANE)
