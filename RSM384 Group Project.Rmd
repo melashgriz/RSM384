@@ -43,7 +43,10 @@ nba.9624.player.adv.def <- read.csv(text = url)
 ```
 
 ```{r}
-nba.9624.player.adv.def <- nba.9624.player.adv.def %>% filter(YEAR < "2024", GP > "20")
+nba.9624.player.adv.def <- nba.9624.player.adv.def %>%
+  mutate(GP = as.numeric(GP)) %>%
+  filter(GP >= 20, YEAR < "2024")
+
 nba.9624.player.adv.def <- nba.9624.player.adv.def %>% filter (!GP == "9", !GP == "A.J. Lawson", !GP == "LAC", !GP == "IND", !GP == "LAL")
 ```
 
